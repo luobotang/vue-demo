@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>VueJS DEMO</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+<div id="container">loading...</div>
+<script id="template" type="text/vue-template">
+<div id="container">
+    <ul class="item-list" v-show="items.length">
+        <li v-for="item in items" :class="{selected: item.selected}" :key="item.name">
+            <label><input type="checkbox" v-model="item.selected"> {{ item.name }}</label>
+            <a class="cmd" v-on:click="deleteItem(item)">×</a>
+        </li>
+    </ul>
+    <footer>
+        <label><input type="checkbox" v-model="allSelected"> select all</label>
+        <div class="summary">{{ selectedCount }} / {{ items.length }}</div>
+        <div class="new-item" v-on:click="addItem">add</div>
+    </footer>
+</div>
+</script>
+<script src="vue.min.js"></script>
+<script src="index.js"></script>
+</body>
+</html>
