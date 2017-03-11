@@ -10,7 +10,7 @@
 <body>
 <div id="app">
     <transition :name="transitionName">
-        <router-view></router-view>
+        <router-view :items="items" v-on:add-item="addItem"></router-view>
     </transition>
 </div>
 
@@ -21,14 +21,14 @@
             <label><input type="checkbox" v-model="item.selected"> {{ item.name }}</label>
             <div class="cmds">
                 <a :href="itemDetailUrl(item.name)">detail</a>
-                <a class="cmd-icon" v-on:click="deleteItem(item)">×</a>
+                <a class="cmd-icon" v-on:click="$emit('deleteItem', item)">×</a>
             </div>
         </li>
     </ul>
     <footer>
         <label><input type="checkbox" v-model="allSelected"> select all</label>
         <div class="summary">{{ selectedCount }} / {{ items.length }}</div>
-        <div class="new-item" v-on:click="addItem">add</div>
+        <div class="new-item" v-on:click="$emit('add-item')">add</div>
     </footer>
 </div>
 </script>
