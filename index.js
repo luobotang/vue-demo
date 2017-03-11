@@ -12,11 +12,14 @@ var ItemList = {
         },
         allSelected: {
             get: function () {
-                return this.items.findIndex(item => !item.selected) === -1
+                return (
+                    this.items.length > 0 &&
+                    this.items.findIndex(item => !item.selected) === -1
+                )
             },
             set: function (val) {
                 val = !!val
-                this.$emit('selectAll', val)
+                this.$emit('select-all', val)
             }
         }
     },
@@ -28,7 +31,16 @@ var ItemList = {
 }
 
 var ItemDetail = {
-    template: '#tpl-item-detail'
+    template: '#tpl-item-detail',
+    props: ['items'],
+    computed: {
+        item: function () {
+            var name = this.$route.params.name
+            return this.items.find(function (item) {
+                return item.name === name
+            })
+        }
+    }
 }
 
 var router = new VueRouter({
@@ -69,17 +81,6 @@ var app = new Vue({
             this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
         }
     },
-    computed: {
-        allSelected: {
-            get: function () {
-                return this.items.findIndex(item => !item.selected) === -1
-            },
-            set: function (val) {
-                val = !!val;
-                this.items.forEach(item => item.selected = val)
-            }
-        }
-    },
     methods: {
         addItem: function () {
             this.items.push(this.newItem())
@@ -94,6 +95,11 @@ var app = new Vue({
             return {
                 selected: false,
                 name: (+new Date).toString().slice(5)
+            }
+        },
+        selectAll: function (val) {
+            if (this.items.length > 0) {
+                this.items.forEach(item => item.selected = val)
             }
         }
     }

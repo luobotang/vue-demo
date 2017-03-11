@@ -10,7 +10,12 @@
 <body>
 <div id="app">
     <transition :name="transitionName">
-        <router-view :items="items" v-on:add-item="addItem"></router-view>
+        <router-view
+            :items="items"
+            @add-item="addItem"
+            @delete-item="deleteItem"
+            @select-all="selectAll"
+        ></router-view>
     </transition>
 </div>
 
@@ -21,12 +26,12 @@
             <label><input type="checkbox" v-model="item.selected"> {{ item.name }}</label>
             <div class="cmds">
                 <a :href="itemDetailUrl(item.name)">detail</a>
-                <a class="cmd-icon" v-on:click="$emit('deleteItem', item)">×</a>
+                <a class="cmd-icon" v-on:click="$emit('delete-item', item)">×</a>
             </div>
         </li>
     </ul>
     <footer>
-        <label><input type="checkbox" v-model="allSelected"> select all</label>
+        <label><input type="checkbox" v-model="allSelected" :disabled="items.length === 0"> select all</label>
         <div class="summary">{{ selectedCount }} / {{ items.length }}</div>
         <div class="new-item" v-on:click="$emit('add-item')">add</div>
     </footer>
@@ -35,8 +40,8 @@
 
 <script id="tpl-item-detail" type="text/x-template">
 <div class="item-detail-container page">
-    <div class="head">{{ $route.params.name }}</div>
-    <div class="body">...TODO...</div>
+    <div class="head">{{ item.name }}</div>
+    <div class="body"><strong>{{ item.name }}</strong> is {{ item.selected ? 'selected' : 'not selected' }}.</div>
     <div class="foot">
         <button @click="router.go(-1)">Go Back</button>
     </div>
