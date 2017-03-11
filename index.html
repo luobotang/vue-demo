@@ -36,7 +36,7 @@
     <div class="head">{{ $route.params.name }}</div>
     <div class="body">...TODO...</div>
     <div class="foot">
-        <a href="#/">Go Back</a>
+        <button @click="router.go(-1)">Go Back</button>
     </div>
 </div>
 </script>

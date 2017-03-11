@@ -56,8 +56,14 @@ var ItemDetail = {
 
 var router = new VueRouter({
     routes: [
-        {path: '', component: ItemList},
-        {path: '/item/:name', component: ItemDetail}
+        {path: '', component: ItemList, beforeEnter: function (to, from, next) {
+            document.title = 'Item List - VueJS DEMO'
+            next()
+        }},
+        {path: '/item/:name', component: ItemDetail, beforeEnter: function (to, from, next) {
+            document.title = to.params.name + ' - VueJS DEMO'
+            next()
+        }}
     ]
 })
 
