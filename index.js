@@ -1,20 +1,21 @@
-var vm = new Vue({
-    el: '#container',
-    template: '#template',
-    data: {
-        items: [{
-            selected: true,
-            name: 'C'
-        }, {
-            selected: true,
-            name: 'Java'
-        }, {
-            selected: true,
-            name: 'C#'
-        }, {
-            selected: false,
-            name: 'JavaScript'
-        }]
+var ItemList = {
+    template: '#tpl-item-list',
+    data: function () {
+        return {
+            items: [{
+                selected: true,
+                name: 'C'
+            }, {
+                selected: true,
+                name: 'Java'
+            }, {
+                selected: true,
+                name: 'C#'
+            }, {
+                selected: false,
+                name: 'JavaScript'
+            }]
+        }
     },
     computed: {
         selectedCount: function () {
@@ -42,6 +43,24 @@ var vm = new Vue({
             if (i !== -1) {
                 this.items.splice(i, 1)
             }
+        },
+        itemDetailUrl: function (name) {
+            return '#/item/' + name
         }
     }
+}
+
+var ItemDetail = {
+    template: '#tpl-item-detail'
+}
+
+var router = new VueRouter({
+    routes: [
+        {path: '', component: ItemList},
+        {path: '/item/:name', component: ItemDetail}
+    ]
 })
+
+var app = new Vue({
+    router: router
+}).$mount('#app')

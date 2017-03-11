@@ -7,7 +7,7 @@ body {
     color: #333;
 }
 
-#container {
+.item-list-container {
     padding-bottom: 65px;
     overflow-y: auto;
 }
@@ -26,9 +26,16 @@ body {
     font-weight: bold;
 }
 
-.item-list .cmd {
+.item-list .cmds {
     float: right;
     color: #999;
+}
+.item-list a {
+    margin-left: 10px;
+    color: inherit;
+}
+.item-list .cmd-icon {
+    display: inline-block;
     transform: scale(1.5);
 }
 
@@ -63,4 +70,30 @@ footer .new-item {
 footer .new-item:active {
     background: #f0f0f0;
     user-select: none;
+}
+
+
+.item-detail-container .head {
+    padding: 20px 30px;
+    color: #fff;
+    font-size: 36px;
+    text-align: center;
+    background: #333;
+}
+.item-detail-container .body {
+    padding: 20px 30px;
+}
+.item-detail-container .foot {
+    border-top: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+}
+.item-detail-container .foot a {
+    display: block;
+    padding: 20px 30px;
+    text-align: center;
+    color: inherit;
+    background: #f0f0f0;
+}
+.item-detail-container .foot a:active {
+    background: #eee;
 }
