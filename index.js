@@ -68,5 +68,15 @@ var router = new VueRouter({
 })
 
 var app = new Vue({
-    router: router
+    data: {
+        transitionName: 'slide'
+    },
+    router: router,
+    watch: {
+        $route: function (to, from) {
+            var toDepth = to.path.split('/').length
+            var fromDepth = from.path.split('/').length
+            this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
+        }
+    }
 }).$mount('#app')
