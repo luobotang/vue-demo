@@ -8,48 +8,9 @@
     <link rel="stylesheet" href="index.css">
 </head>
 <body>
-<div id="app">
-    <transition :name="transitionName">
-        <router-view
-            :items="items"
-            @add-item="addItem"
-            @delete-item="deleteItem"
-            @select-all="selectAll"
-        ></router-view>
-    </transition>
-</div>
-
-<script id="tpl-item-list" type="text/x-template">
-<div class="item-list-container page">
-    <ul class="item-list" v-show="items.length">
-        <li v-for="item in items" :class="{selected: item.selected}" :key="item.name">
-            <label><input type="checkbox" v-model="item.selected"> {{ item.name }}</label>
-            <div class="cmds">
-                <a :href="itemDetailUrl(item.name)">detail</a>
-                <a class="cmd-icon" v-on:click="$emit('delete-item', item)">×</a>
-            </div>
-        </li>
-    </ul>
-    <footer>
-        <label><input type="checkbox" v-model="allSelected" :disabled="items.length === 0"> select all</label>
-        <div class="summary">{{ selectedCount }} / {{ items.length }}</div>
-        <div class="new-item" v-on:click="$emit('add-item')">add</div>
-    </footer>
-</div>
-</script>
-
-<script id="tpl-item-detail" type="text/x-template">
-<div class="item-detail-container page">
-    <div class="head">{{ item.name }}</div>
-    <div class="body"><strong>{{ item.name }}</strong> is {{ item.selected ? 'selected' : 'not selected' }}.</div>
-    <div class="foot">
-        <button @click="router.go(-1)">Go Back</button>
-    </div>
-</div>
-</script>
-
-<script src="vue.min.js"></script>
-<script src="vue-router.min.js"></script>
-<script src="index.js"></script>
+<div id="app"></div>
+<script src="lib/vue.min.js"></script>
+<script src="lib/vue-router.min.js"></script>
+<script src="dist/bundle.js"></script>
 </body>
 </html>
