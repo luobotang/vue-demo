@@ -1,5 +1,6 @@
 var path = require('path')
 var webpack = require('webpack')
+var ExtractTextPlugin = require("extract-text-webpack-plugin")
 
 module.exports = {
     entry: './src/index.js',
@@ -16,12 +17,16 @@ module.exports = {
         new webpack.optimize.UglifyJsPlugin({
             compress: true
         }),
-        new webpack.optimize.OccurrenceOrderPlugin()
+        new webpack.optimize.OccurrenceOrderPlugin(),
+        new ExtractTextPlugin("bundle.css")
     ],
     module: {
         rules: [{
             test: /.vue$/,
             loader: 'vue-loader'
+        }, {
+            test: /.css$/,
+            loader: ExtractTextPlugin.extract('css-loader')
         }]
     }
 }
