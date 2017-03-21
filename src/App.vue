@@ -1,17 +1,13 @@
 <template>
 <div id="app">
     <transition :name="transitionName">
-        <router-view
-            :items="items"
-            @add-item="addItem"
-            @delete-item="deleteItem"
-            @select-all="selectAll"
-        ></router-view>
+        <router-view></router-view>
     </transition>
 </div>
 </template>
 
 <script>
+import store from './store'
 import ItemList from './ItemList.vue'
 import ItemDetail from './ItemDetail.vue'
 
@@ -33,22 +29,12 @@ var router = new VueRouter({
     }]
 })
 
-export default {
-    data: {
-        transitionName: 'slide',
-        items: [{
-            selected: true,
-            name: 'C'
-        }, {
-            selected: true,
-            name: 'Java'
-        }, {
-            selected: true,
-            name: 'C#'
-        }, {
-            selected: false,
-            name: 'JavaScript'
-        }]
+export default Vue.extend({
+    store: store,
+    data: function () {
+        return {
+            transitionName: 'slide'
+        }
     },
     router: router,
     watch: {
@@ -57,30 +43,6 @@ export default {
             var fromDepth = from.path.split('/').length
             this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
         }
-    },
-    methods: {
-        addItem: function () {
-            this.items.push(this.newItem())
-        },
-        deleteItem: function (item) {
-            var i = this.items.findIndex(function (_item) { return _item === item })
-            if (i !== -1) {
-                this.items.splice(i, 1)
-            }
-        },
-        newItem: function () {
-            return {
-                selected: false,
-                name: (+new Date).toString().slice(5)
-            }
-        },
-        selectAll: function (val) {
-            if (this.items.length > 0) {
-                this.items.forEach(function (item) {
-                    return item.selected = val
-                })
-            }
-        }
     }
-}
+})
 </script>

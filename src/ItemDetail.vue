@@ -9,12 +9,14 @@
 </template>
 
 <script>
+import store from './store'
+
 export default {
-    props: ['items'],
+    store: store,
     computed: {
         item: function () {
             var name = this.$route.params.name
-            return this.items.find(function (item) {
+            return store.state.items.find(function (item) {
                 return item.name === name
             })
         }
