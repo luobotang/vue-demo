@@ -17,6 +17,70 @@
 </div>
 </template>
 
+<style>
+.item-list-container {
+    padding-bottom: 65px;
+    overflow-y: auto;
+}
+.item-list {
+    list-style: none;
+}
+.item-list li {
+    padding: 20px 30px;
+    border-bottom: 1px solid #dedede;
+}
+.item-list li:nth-child(even) {
+    background: #f8f8ff;
+}
+.item-list li.selected label {
+    font-weight: bold;
+}
+
+.item-list .cmds {
+    float: right;
+    color: #999;
+}
+.item-list a {
+    margin-left: 10px;
+    color: inherit;
+}
+.item-list .cmd-icon {
+    display: inline-block;
+    transform: scale(1.5);
+}
+
+footer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px 130px 20px 30px;
+    box-sizing: border-box;
+    color: #fff;
+    background: #666;
+    box-shadow: 0 0 10px #999;
+}
+footer .summary {
+    float: right;
+}
+footer .new-item {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    padding: 20px 0;
+    width: 100px;
+    text-align: center;
+    color: #333;
+    background: #fff;
+    box-sizing: border-box;
+}
+footer .new-item:active {
+    background: #f0f0f0;
+    user-select: none;
+}
+</style>
+
 <script>
 import store from './store'
 

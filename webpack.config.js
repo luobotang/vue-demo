@@ -8,6 +8,23 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'bundle.js'
     },
+    module: {
+        rules: [{
+            test: /.vue$/,
+            loader: 'vue-loader',
+            options: {
+                loaders: {
+                    css: ExtractTextPlugin.extract({
+                        use: 'css-loader',
+                        fallback: 'vue-style-loader'
+                    })
+                }
+            }
+        }, {
+            test: /.css$/,
+            loader: ExtractTextPlugin.extract('css-loader')
+        }]
+    },
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
@@ -19,14 +36,5 @@ module.exports = {
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new ExtractTextPlugin("bundle.css")
-    ],
-    module: {
-        rules: [{
-            test: /.vue$/,
-            loader: 'vue-loader'
-        }, {
-            test: /.css$/,
-            loader: ExtractTextPlugin.extract('css-loader')
-        }]
-    }
+    ]
 }

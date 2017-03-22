@@ -1,10 +1,18 @@
 <template>
-<div id="app">
-    <transition :name="transitionName">
-        <router-view></router-view>
-    </transition>
-</div>
+<transition :name="transitionName">
+    <router-view></router-view>
+</transition>
 </template>
+
+<style>
+.slide-left-enter {
+    transform: translateX(100%);
+}
+.slide-right-leave-active {
+    transform: translateX(100%);
+    z-index: 1;
+}
+</style>
 
 <script>
 import store from './store'

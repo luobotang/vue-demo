@@ -8,6 +8,38 @@
 </div>
 </template>
 
+<style>
+.item-detail-container .head {
+    padding: 20px 30px;
+    color: #fff;
+    font-size: 36px;
+    text-align: center;
+    background: #333;
+}
+.item-detail-container .body {
+    padding: 20px 30px;
+}
+.item-detail-container .foot {
+    border-top: 1px solid #dedede;
+    border-bottom: 1px solid #dedede;
+}
+.item-detail-container .foot button {
+    display: block;
+    padding: 20px 30px;
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    color: inherit;
+    background: #f0f0f0;
+    border: 0 none;
+    box-sizing: border-box;
+    transition: background 0.2s;
+}
+.item-detail-container .foot button:active {
+    background: #ddd;
+}
+</style>
+
 <script>
 import store from './store'
 
