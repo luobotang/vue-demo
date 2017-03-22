@@ -26,6 +26,8 @@
     "babel-loader": "^6.4.1",
     "css-loader": "^0.27.3",
     "extract-text-webpack-plugin": "^2.1.0",
+    "less": "^2.7.2",
+    "less-loader": "^4.0.2",
     "vue-loader": "^11.1.4",
     "vue-template-compiler": "^2.2.4",
     "webpack": "^2.2.1"

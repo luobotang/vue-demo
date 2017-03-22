@@ -14,10 +14,8 @@ module.exports = {
             loader: 'vue-loader',
             options: {
                 loaders: {
-                    css: ExtractTextPlugin.extract({
-                        use: 'css-loader',
-                        fallback: 'vue-style-loader'
-                    })
+                    css: ExtractTextPlugin.extract('css-loader'),
+                    less: ExtractTextPlugin.extract('css-loader!less-loader')
                 }
             }
         }, {
