@@ -15,6 +15,7 @@
 </style>
 
 <script>
+import VueRouter from 'vue-router'
 import store from './store'
 import ItemList from './ItemList.vue'
 import ItemDetail from './ItemDetail.vue'

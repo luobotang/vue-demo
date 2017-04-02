@@ -23,6 +23,11 @@ module.exports = {
             loader: ExtractTextPlugin.extract('css-loader')
         }]
     },
+    externals: {
+        vue: 'Vue',
+        'vue-router': 'VueRouter',
+        vuex: 'Vuex'
+    },
     plugins: [
         new webpack.DefinePlugin({
             'process.env': {
@@ -34,5 +39,9 @@ module.exports = {
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new ExtractTextPlugin("bundle.css")
-    ]
+    ],
+    devServer: {
+        compress: true,
+        port: 8080
+    }
 }
