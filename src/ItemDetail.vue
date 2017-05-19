@@ -1,7 +1,10 @@
 <template>
 <div class="item-detail-container page">
     <div class="head">{{ item.name }}</div>
-    <div class="body"><strong>{{ item.name }}</strong> is {{ item.selected ? 'selected' : 'not selected' }}.</div>
+    <div class="body">
+        <strong>{{ item.name }}</strong> is {{ item.selected ? 'selected' : 'not selected' }}.<br>
+        <router-link :to="{name: 'itemHistory', param: {name: item.name}}">history</router-link>
+    </div>
     <div class="foot">
         <button @click="goBack">Go Back</button>
     </div>

@@ -1,26 +1,31 @@
 var path = require('path')
 var webpack = require('webpack')
-var ExtractTextPlugin = require("extract-text-webpack-plugin")
+var Extract = require("extract-text-webpack-plugin")
+var Clean = require('clean-webpack-plugin')
 
 module.exports = {
     entry: './src/index.js',
     output: {
         path: path.resolve(__dirname, 'dist'),
-        filename: 'bundle.js'
+        filename: 'bundle.js',
+        publicPath: '/dist'
     },
     module: {
         rules: [{
-            test: /.vue$/,
+            test: /\.js$/,
+            loader: 'babel-loader'
+        }, {
+            test: /\.vue$/,
             loader: 'vue-loader',
             options: {
                 loaders: {
-                    css: ExtractTextPlugin.extract('css-loader'),
-                    less: ExtractTextPlugin.extract('css-loader!less-loader')
+                    css: Extract.extract('css-loader'),
+                    less: Extract.extract('css-loader!less-loader')
                 }
             }
         }, {
-            test: /.css$/,
-            loader: ExtractTextPlugin.extract('css-loader')
+            test: /\.css$/,
+            loader: Extract.extract('css-loader')
         }]
     },
     externals: {
@@ -29,19 +34,20 @@ module.exports = {
         vuex: 'Vuex'
     },
     plugins: [
+        new Clean(['dist'], {
+            verbose: false
+        }),
         new webpack.DefinePlugin({
             'process.env': {
                 NODE_ENV: '"production"'
             }
         }),
-        new webpack.optimize.UglifyJsPlugin({
-            compress: true
-        }),
         new webpack.optimize.OccurrenceOrderPlugin(),
-        new ExtractTextPlugin("bundle.css")
+        new Extract("bundle.css")
     ],
     devServer: {
         compress: true,
-        port: 8080
+        port: 8080,
+        stats: 'errors-only'
     }
 }

@@ -1,57 +1,53 @@
 <template>
-<transition :name="transitionName">
-    <router-view></router-view>
-</transition>
+    <transition :name="transitionName">
+        <router-view></router-view>
+    </transition>
 </template>
 
 <style>
-.slide-left-enter {
-    transform: translateX(100%);
-}
-.slide-right-leave-active {
-    transform: translateX(100%);
-    z-index: 1;
-}
+    .slide-left-enter,
+    .slide-left-leave,
+    .slide-right-enter,
+    .slide-right-leave {
+        transition: transform 0.5s linear;
+    }
+    .slide-left-enter-active,
+    .slide-right-leave-active {
+        z-index: 1;
+    }
+    .slide-left-enter,
+    .slide-right-leave-active {
+        transform: translateX(100%);
+    }
+    .slide-left-leave-active,
+    .slide-right-enter {
+        transform: translateX(-100%);
+    }
 </style>
 
 <script>
-import VueRouter from 'vue-router'
-import store from './store'
-import ItemList from './ItemList.vue'
-import ItemDetail from './ItemDetail.vue'
+    import VueRouter from 'vue-router'
+    import store from './store'
+    import routes from './routes'
 
-var router = new VueRouter({
-    routes: [{
-        path: '',
-        component: ItemList,
-        beforeEnter: function (to, from, next) {
-            document.title = 'Item List - VueJS DEMO'
-            next()
-        }
-    }, {
-        path: '/item/:name',
-        component: ItemDetail,
-        beforeEnter: function (to, from, next) {
-            document.title = to.params.name + ' - VueJS DEMO'
-            next()
-        }
-    }]
-})
+    var router = new VueRouter({
+        routes: routes
+    })
 
-export default Vue.extend({
-    store: store,
-    data: function () {
-        return {
-            transitionName: 'slide'
-        }
-    },
-    router: router,
-    watch: {
-        $route: function (to, from) {
-            var toDepth = to.path.split('/').length
-            var fromDepth = from.path.split('/').length
-            this.transitionName = toDepth < fromDepth ? 'slide-right' : 'slide-left'
-        }
-    }
-})
+    router.beforeEach(function (to, from, next) {
+        var title = to.meta.title
+        document.title = (typeof title === 'function' ? title(to) : title) || 'DEMO'
+        router.app.transitionName = to.meta.index > from.meta.index ? 'slide-left' : 'slide-right'
+        next()
+    })
+
+    export default Vue.extend({
+        store: store,
+        data: function () {
+            return {
+                transitionName: 'slide'
+            }
+        },
+        router: router
+    })
 </script>
