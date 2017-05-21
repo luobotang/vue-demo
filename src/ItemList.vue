@@ -86,19 +86,23 @@ footer {
 </style>
 
 <script>
-import store from './store'
+var methods = Vuex.mapMutations([
+    'toggleAllSelected'
+])
+
+methods.deleteItem = function(item) {
+    this.$store.dispatch('deleteItem', item)
+}
+methods.addNewItem = function() {
+    this.$store.dispatch('addNewItem')
+}
 
 export default {
-    store: store,
     computed: Vuex.mapGetters([
         'items',
         'selectedCount',
         'allSelected'
     ]),
-    methods: Vuex.mapMutations([
-        'toggleAllSelected',
-        'addNewItem',
-        'deleteItem'
-    ])
+    methods: methods
 }
 </script>

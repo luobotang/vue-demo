@@ -48,6 +48,9 @@
                 transitionName: 'slide'
             }
         },
-        router: router
+        router: router,
+        created: function() {
+            this.$store.dispatch('fetchItems')
+        }
     })
 </script>

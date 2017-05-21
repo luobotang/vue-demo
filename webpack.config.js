@@ -44,10 +44,5 @@ module.exports = {
         }),
         new webpack.optimize.OccurrenceOrderPlugin(),
         new Extract("bundle.css")
-    ],
-    devServer: {
-        compress: true,
-        port: 8080,
-        stats: 'errors-only'
-    }
+    ]
 }

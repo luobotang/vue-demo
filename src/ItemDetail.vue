@@ -1,13 +1,16 @@
 <template>
-<div class="item-detail-container page">
+<div class="item-detail-container page" v-if="item">
     <div class="head">{{ item.name }}</div>
     <div class="body">
-        <strong>{{ item.name }}</strong> is {{ item.selected ? 'selected' : 'not selected' }}.<br>
+        {{item.desc || 'no desc'}}<br>
         <router-link :to="{name: 'itemHistory', param: {name: item.name}}">history</router-link>
     </div>
     <div class="foot">
         <button @click="goBack">Go Back</button>
     </div>
+</div>
+<div class="item-detail-container page" v-else>
+loading...
 </div>
 </template>
 
@@ -47,22 +50,38 @@
 </style>
 
 <script>
-import store from './store'
-
 export default {
-    store: store,
-    computed: {
-        item: function () {
-            var name = this.$route.params.name
-            return store.state.items.find(function (item) {
-                return item.name === name
-            })
+    data: function() {
+        return {
+            item: null
         }
     },
     methods: {
         goBack: function () {
             history.back()
         }
+    },
+    beforeRouteEnter: function(to, from, next) {
+        var vm
+        var item
+        fetch('/item/' + to.params.name).then(function(res) {
+            return res.json()
+        }).then(function(data) {
+            if (vm) {
+                vm.item = data
+            } else {
+                item = data
+            }
+        }).catch(function() {
+            alert('get item failed')
+        })
+        next(function(_vm) {
+            if (item) {
+                _vm.item = item
+            } else {
+                vm = _vm
+            }
+        })
     }
 }
 </script>
