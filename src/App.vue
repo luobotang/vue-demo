@@ -5,22 +5,19 @@
 </template>
 
 <style>
-    .slide-left-enter,
-    .slide-left-leave,
-    .slide-right-enter,
-    .slide-right-leave {
-        transition: transform 0.5s linear;
-    }
     .slide-left-enter-active,
     .slide-right-leave-active {
+        transition: transform 0.5s linear;
         z-index: 1;
     }
     .slide-left-enter,
     .slide-right-leave-active {
+        transition: transform 0.5s linear;
         transform: translateX(100%);
     }
     .slide-left-leave-active,
     .slide-right-enter {
+        transition: transform 0.5s linear;
         transform: translateX(-100%);
     }
 </style>

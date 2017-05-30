@@ -1,5 +1,7 @@
 <template>
-<page :getData="getDagta">
+<div v-if="loading">loading...</div>
+<div v-else-if="error">{{error}}</div>
+<div v-else>
     <div class="item-detail-container page">
         <div class="head">{{ data.name }}</div>
         <div class="body">
@@ -10,7 +12,7 @@
             <button @click="goBack">Go Back</button>
         </div>
     </div>
-</page>
+</div>
 </template>
 
 <style lang="less">
@@ -50,22 +52,35 @@
 
 <script>
 export default {
+    data: function() {
+        return {
+            loading: true,
+            error: null,
+            data: null
+        }
+    },
     methods: {
         goBack: function () {
             history.back()
         },
         getData: function(resolve, reject) {
+            var vm = this
+
+            vm.loading = true
+            vm.error = vm.data = null
             fetch('/item/' + this.$route.params.name).then(function (res) {
                 return res.json()
             }).then(function(data) {
-                resolve(data)
+                vm.loading = false
+                vm.data = data
             }).catch(function() {
-                reject('can not get item detail')
+                vm.loading = false
+                vm.error = 'get data failed'
             })
         }
     },
-    componenents: {
-        page: require('./page')
+    created: function() {
+        this.getData()
     }
 }
 </script>
