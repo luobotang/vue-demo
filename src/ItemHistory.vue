@@ -1,7 +1,7 @@
 <template>
     <div class="item-history-container" v-if="!error">
         <ul>
-            <li v-for="node in nodes">{{ node.name }}: {{ node.desc }}</li>
+            <li v-for="node in nodes" :key="node.name">{{ node.name }}: {{ node.desc }}</li>
         </ul>
     </div>
     <div class="error" v-else>{{ error }}</div>
@@ -27,19 +27,25 @@
             };
         },
         created: function() {
-            var vm = this
-            vm.error = null
-            fetch('/item/' + this.$route.params.name).then(function(res) {
-                return res.json()
-            }).then(function(data) {
-                vm.nodes = data.history
-            }).catch(function() {
-                vm.error = 'get history failed!'
-            })
+            if (process.env.NODE_ENV === 'production') {
+                this.fetchData()
+            } else {
+                // do nothing!
+                // let test code to set data!
+            }
+        },
+        methods: {
+            fetchData: function() {
+                var vm = this
+                vm.error = null
+                fetch('/item/' + this.$route.params.name).then(function(res) {
+                    return res.json()
+                }).then(function(data) {
+                    vm.nodes = data.history
+                }).catch(function() {
+                    vm.error = 'get history failed!'
+                })
+            }
         }
-    }
-
-    function dice() {
-        return Math.random() > 0.5
     }
 </script>
