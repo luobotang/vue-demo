@@ -1,17 +1,16 @@
 <template>
-<div class="item-detail-container page" v-if="item">
-    <div class="head">{{ item.name }}</div>
-    <div class="body">
-        {{item.desc || 'no desc'}}<br>
-        <router-link :to="{name: 'itemHistory', param: {name: item.name}}">history</router-link>
+<page :getData="getDagta">
+    <div class="item-detail-container page">
+        <div class="head">{{ data.name }}</div>
+        <div class="body">
+            {{data.desc || 'no desc'}}<br>
+            <router-link :to="{name: 'itemHistory', param: {name: data.name}}">history</router-link>
+        </div>
+        <div class="foot">
+            <button @click="goBack">Go Back</button>
+        </div>
     </div>
-    <div class="foot">
-        <button @click="goBack">Go Back</button>
-    </div>
-</div>
-<div class="item-detail-container page" v-else>
-loading...
-</div>
+</page>
 </template>
 
 <style lang="less">
@@ -51,37 +50,22 @@ loading...
 
 <script>
 export default {
-    data: function() {
-        return {
-            item: null
-        }
-    },
     methods: {
         goBack: function () {
             history.back()
+        },
+        getData: function(resolve, reject) {
+            fetch('/item/' + this.$route.params.name).then(function (res) {
+                return res.json()
+            }).then(function(data) {
+                resolve(data)
+            }).catch(function() {
+                reject('can not get item detail')
+            })
         }
     },
-    beforeRouteEnter: function(to, from, next) {
-        var vm
-        var item
-        fetch('/item/' + to.params.name).then(function(res) {
-            return res.json()
-        }).then(function(data) {
-            if (vm) {
-                vm.item = data
-            } else {
-                item = data
-            }
-        }).catch(function() {
-            alert('get item failed')
-        })
-        next(function(_vm) {
-            if (item) {
-                _vm.item = item
-            } else {
-                vm = _vm
-            }
-        })
+    componenents: {
+        page: require('./page')
     }
 }
 </script>

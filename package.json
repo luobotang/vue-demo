@@ -4,7 +4,7 @@
   "description": "vue demo",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "karma start",
     "build": "webpack",
     "start": "node server"
   },
@@ -29,6 +29,9 @@
     "css-loader": "^0.27.3",
     "express": "^4.15.3",
     "extract-text-webpack-plugin": "^2.1.0",
+    "karma": "^1.7.0",
+    "karma-jasmine": "^1.1.0",
+    "karma-safari-launcher": "^1.0.0",
     "less": "^2.7.2",
     "less-loader": "^4.0.2",
     "vue-loader": "^11.1.4",
