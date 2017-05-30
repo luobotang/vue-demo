@@ -1,16 +1,14 @@
 <template>
-<div v-if="loading">loading...</div>
-<div v-else-if="error">{{error}}</div>
-<div v-else>
-    <div class="item-detail-container page">
-        <div class="head">{{ data.name }}</div>
-        <div class="body">
-            {{data.desc || 'no desc'}}<br>
-            <router-link :to="{name: 'itemHistory', param: {name: data.name}}">history</router-link>
-        </div>
-        <div class="foot">
-            <button @click="goBack">Go Back</button>
-        </div>
+<div v-if="loading" class="page">loading...</div>
+<div v-else-if="error" class="page">{{error}}</div>
+<div v-else class="item-detail-container page">
+    <div class="head">{{ data.name }}</div>
+    <div class="body">
+        {{data.desc || 'no desc'}}<br>
+        <router-link :to="{name: 'itemHistory', param: {name: data.name}}">history</router-link>
+    </div>
+    <div class="foot">
+        <button @click="goBack">Go Back</button>
     </div>
 </div>
 </template>

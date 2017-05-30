@@ -1,10 +1,10 @@
 <template>
-    <div class="item-history-container" v-if="!error">
+    <div class="page item-history-container" v-if="!error">
         <ul>
             <li v-for="node in nodes" :key="node.name">{{ node.name }}: {{ node.desc }}</li>
         </ul>
     </div>
-    <div class="error" v-else>{{ error }}</div>
+    <div class="page error" v-else>{{ error }}</div>
 </template>
 
 <style>

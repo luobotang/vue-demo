@@ -5,19 +5,23 @@
 </template>
 
 <style>
+    /* add transition to all state, or the transition will be immediate */
     .slide-left-enter-active,
+    .slide-left-leave-active,
+    .slide-right-enter-active,
     .slide-right-leave-active {
         transition: transform 0.5s linear;
+    }
+    .slide-left-enter-active,
+    .slide-right-leave-active {
         z-index: 1;
     }
     .slide-left-enter,
     .slide-right-leave-active {
-        transition: transform 0.5s linear;
         transform: translateX(100%);
     }
     .slide-left-leave-active,
     .slide-right-enter {
-        transition: transform 0.5s linear;
         transform: translateX(-100%);
     }
 </style>
